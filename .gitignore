@@ -1,0 +1,29 @@
+### Android / Gradle ###
+.gradle/
+build/
+local.properties
+/.idea/
+*.iml
+
+### Android Studio ###
+.DS_Store
+.cxx/
+.externalNativeBuild/
+captures/
+
+### App build outputs ###
+app/build/
+*.apk
+*.aab
+
+### Kotlin / Java ###
+*.class
+*.log
+
+### Misc ###
+*.keystore
+*.jks
+
+### Project docs not для репозитория ###
+PRD MVP.txt
+

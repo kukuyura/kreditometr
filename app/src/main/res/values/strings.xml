@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Кредитометр</string>
+
+    <!-- Input screen -->
+    <string name="product_type">Тип продукта</string>
+    <string name="product_credit">Кредит</string>
+    <string name="product_loan">Займ</string>
+    <string name="product_mortgage">Ипотека</string>
+    <string name="product_installment">Рассрочка</string>
+    <string name="product_education">Образовательный кредит</string>
+
+    <string name="field_amount">Сумма, ₽</string>
+    <string name="field_term">Срок</string>
+    <string name="field_term_months">месяцев</string>
+    <string name="field_term_years">лет</string>
+    <string name="field_rate">Процентная ставка, % годовых</string>
+    <string name="field_rate_per_day">Ставка, % в день</string>
+    <string name="field_down_payment">Первоначальный взнос, ₽</string>
+
+    <string name="btn_calculate">Рассчитать</string>
+    <string name="warning_high_rate">Высокая ставка. Будьте осторожны.</string>
+
+    <!-- Result screen -->
+    <string name="result_summary">Сводка</string>
+    <string name="result_monthly_payment">Ежемесячный платёж</string>
+    <string name="result_total_payment">Общая сумма выплат</string>
+    <string name="result_overpayment">Переплата</string>
+    <string name="result_psk">ПСК, % годовых</string>
+    <string name="schedule_title">График платежей</string>
+    <string name="btn_show_full_schedule">Показать полностью</string>
+    <string name="btn_back">Назад</string>
+    <string name="btn_share">Поделиться</string>
+
+    <!-- Schedule table -->
+    <string name="schedule_no">№</string>
+    <string name="schedule_date">Дата</string>
+    <string name="schedule_payment">Платёж</string>
+    <string name="schedule_interest">Проценты</string>
+    <string name="schedule_principal">Основной долг</string>
+    <string name="schedule_remaining">Остаток</string>
+
+    <!-- Fallbacks -->
+    <string name="no_calculation_data">Нет данных расчёта</string>
+    <string name="no_schedule_data">Нет данных графика</string>
+    <string name="result_summary_type">Тип</string>
+    <string name="result_summary_amount">Сумма</string>
+    <string name="result_summary_down">Первоначальный взнос</string>
+    <string name="result_summary_loan_amount">Сумма кредита</string>
+    <string name="result_summary_term">Срок</string>
+    <string name="result_summary_rate">Ставка</string>
+    <string name="error_term_too_long">Срок слишком большой</string>
+
+    <string name="calculator_disclaimer">Калькулятор создан в учебных целях и не несёт ответственности за предоставленные расчёты.</string>
+</resources>
