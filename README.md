@@ -1,69 +1,76 @@
 # Кредитометр
 
-MVP мобильного приложения для Android — финансовый калькулятор для расчёта параметров кредитов, займов, ипотеки, рассрочки и образовательного кредита.
+Android MVP: financial calculator for consumer credit, microloans, mortgages, installments, and education loans.
 
-## Функциональность
+Kotlin + Jetpack Compose app with a small domain layer for annuity math, payment schedules, and a simplified APR/ПСК estimate — plus unit tests for the calculator.
 
-- Выбор типа продукта: кредит, займ, ипотека, рассрочка, образовательный кредит.
-- Ввод суммы, срока (в месяцах или годах), процентной ставки; для ипотеки — первоначальный взнос.
-- Расчёт аннуитетного платежа, общей суммы выплат, переплаты и ПСК (полная стоимость кредита).
-- График платежей с возможностью просмотра полного списка.
-- Поделиться результатами расчёта (текстовый отчёт).
+![App icon](icon.png)
 
-## Требования к среде
+## Features
 
-- **Android Studio** — рекомендуемая среда (Ladybug 2024.2 или новее, либо другая версия с поддержкой Kotlin 1.9 и AGP 8.x).
-- **JDK 17**.
-- **Android SDK**: minSdk 24, targetSdk 35, compileSdk 35.
+- Product types: кредит, займ, ипотека, рассрочка, образовательный кредит
+- Inputs: amount, term (months/years), rate; mortgage down payment
+- Outputs: annuity payment, total paid, overpayment, ПСК
+- Full payment schedule + share as a text report
+- Loan product: daily rate → annual conversion for display
 
-## Сборка и запуск
+## Stack
 
-1. Клонируйте репозиторий и откройте проект в Android Studio.
-2. Дождитесь синхронизации Gradle (при первом открытии Android Studio скачает зависимости).
-3. Подключите устройство или запустите эмулятор с API 24+.
-4. Запуск: **Run → Run 'app'** или `./gradlew installDebug` (если Gradle Wrapper настроен).
+| Layer | Tech |
+|-------|------|
+| UI | Jetpack Compose, Material 3, Navigation Compose, single-Activity |
+| Domain | `LoanCalculator`, product models, schedule generation |
+| Data / util | Formatting, input validation |
+| Tests | JUnit on JVM (`LoanCalculatorTest`) |
+| Tooling | Kotlin 1.9, AGP 8.x, JDK 17, minSdk 24 / targetSdk 35 |
 
-### Сборка APK из командной строки
+### Architecture
 
-При наличии настроенного Gradle Wrapper в корне проекта:
-
-```bash
-./gradlew assembleDebug
+```
+ui/        Input / Result / Schedule screens, ViewModels, theme
+domain/    ProductType, LoanParameters, LoanCalculator, PaymentItem
+data/      FormatUtils
+util/      Validation
 ```
 
-APK будет в `app/build/outputs/apk/debug/app-debug.apk`.
+Shared calculation result lives in `SharedCalculationState` (Activity-scoped ViewModel). Formulas follow the product spec: annuity payment, overpayment, simplified ПСК; installment is 0% rate; mortgage uses `amount − downPayment` as the loan principal.
 
-Для release:
+## Requirements
+
+- Android Studio (Ladybug 2024.2+ or any setup with Kotlin 1.9 / AGP 8.x)
+- JDK 17
+- Android SDK: minSdk 24, targetSdk 35, compileSdk 35
+
+## Build & run
+
+1. Open the repo root in Android Studio and sync Gradle.
+2. Use a device/emulator with API 24+.
+3. **Run → Run 'app'**, or:
 
 ```bash
+./gradlew installDebug
+./gradlew assembleDebug    # → app/build/outputs/apk/debug/app-debug.apk
 ./gradlew assembleRelease
 ```
 
-## Запуск тестов
-
-Unit-тесты расчётов (JVM, без эмулятора):
+## Tests
 
 ```bash
 ./gradlew testDebugUnitTest
 ```
 
-Отчёт: `app/build/reports/tests/testDebugUnitTest/index.html`.
+Report: `app/build/reports/tests/testDebugUnitTest/index.html`.
 
-## Архитектура
+Covered cases include null inputs, annuity payment ≈ known value, installment zeros, mortgage down payment, daily→annual rate, and schedule dates.
 
-- **Стек**: Kotlin, Jetpack Compose, Material Design 3, Single-Activity, навигация через Navigation Compose.
-- **Слои**:
-  - **UI** (`ui/`) — экраны (Input, Result, ScheduleFull), навигация, темы. Состояние экрана ввода — во ViewModel; общий результат расчёта хранится в `SharedCalculationState` (ViewModel уровня Activity).
-  - **Domain** (`domain/`) — модели (`ProductType`, `LoanParameters`, `LoanCalculationResult`, `PaymentItem`) и сервис расчёта `LoanCalculator` (аннуитет, рассрочка, переплата, ПСК, график платежей).
-  - **Data** (`data/`) — форматирование сумм и дат для отображения.
-  - **Util** (`util/`) — валидация полей ввода.
+## Localization
 
-Расчёт выполняется по формулам ТЗ: аннуитетный платёж, переплата, упрощённый ПСК; учтены особенности продуктов (рассрочка 0%, займ с пересчётом дневной ставки в годовую, ипотека с первоначальным взносом).
+UI strings are Russian (`res/values/strings.xml`). Extra locales can be added via `values-*`.
 
-## Локализация
+## Portfolio note
 
-Интерфейс на русском языке; строки вынесены в `res/values/strings.xml`. Архитектура допускает добавление других языков через дополнительные `values-*` каталоги.
+Solid **Android / Kotlin** MVP: clean domain vs UI split, Compose navigation, and tested loan math. Good supporting mobile project; not a full fintech product (no backend, no regulatory ПСК, MVP scope). Pin if targeting Android roles; otherwise keep as a secondary sample.
 
-## Лицензия
+## License
 
-Проект создан в учебных/внутренних целях.
+Educational / personal project.
